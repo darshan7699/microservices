@@ -1,0 +1,42 @@
+package com.te.bookservice.services;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.te.bookservice.dto.BookDto;
+import com.te.bookservice.entity.Book;
+import com.te.bookservice.repo.BookRepo;
+
+@Service
+public class BookServiceImpl implements BookService {
+
+	@Autowired
+	private BookRepo bookRepo;
+	
+	@Override
+	public Book add(BookDto bookDto) {
+		try {
+			System.out.println(bookDto);
+		Book book = new Book();
+		BeanUtils.copyProperties(bookDto, book);
+		
+		 Book save = bookRepo.save(book);
+		 System.out.println(save);
+		 return null;
+		}catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@Override
+	public Book find(Integer id) {
+		try {
+		Book book = bookRepo.findById(id).orElseThrow();
+		return book;
+		}catch (Exception e) {
+			throw e;
+		}
+	}
+
+}

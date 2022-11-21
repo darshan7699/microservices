@@ -1,0 +1,22 @@
+     
+     
+     
+   
+eureka:
+    instance:
+      hostname: localhost
+    
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+       - id: BOOK-SERVICE
+         uri: lb://BOOK-SERVICE
+         predicates:
+          - Path=/book/**
+       - id: USER
+         uri: lb://USER
+         predicates:
+          - Path=/user/**

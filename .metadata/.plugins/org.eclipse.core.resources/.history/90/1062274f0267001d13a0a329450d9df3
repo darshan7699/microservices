@@ -1,0 +1,25 @@
+package com.te.bookservice.response;
+
+import java.io.Serializable;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Response implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7926977769131348084L;
+
+	private boolean error;
+
+	private String messege;
+
+	private Object data;
+
+}

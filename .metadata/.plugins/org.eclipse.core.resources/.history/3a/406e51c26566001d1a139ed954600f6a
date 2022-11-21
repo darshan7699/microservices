@@ -1,0 +1,9 @@
+
+server.port=8085
+spring.application.name=USER-SERVICE
+eureka.client.service-url.default-zone=http://localhost:8761/eureka
+
+
+spring.cache.type=redis
+spring.cache.redis.cache-null-values=true
+#spring.cache.redis.time-to-live=40000

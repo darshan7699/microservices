@@ -1,0 +1,16 @@
+package com.te.user.bookservice;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+public interface Bookservice {
+
+	@PostMapping("/book")
+	public ResponseEntity<Response> addBook(@RequestBody BookDto bookDto);
+
+	@GetMapping("/findBook/{id}")
+	public ResponseEntity<Response> find(@PathVariable Integer id);
+}

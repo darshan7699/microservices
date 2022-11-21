@@ -1,0 +1,5 @@
+package com.te.bookservice.dto;
+
+public class BookDto {
+
+}

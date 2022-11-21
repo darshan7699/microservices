@@ -1,0 +1,43 @@
+package com.te.user.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.te.user.bookdto.BookDto;
+import com.te.user.bookservice.Bookservice;
+import com.te.user.response.Response;
+
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import lombok.NonNull;
+
+@RestController
+public class UserController {
+
+	@Autowired
+	private Bookservice bookConsumer;
+	
+	@PostMapping("/user")
+	public ResponseEntity<Response> addBook(@RequestBody BookDto bookDto){
+		ResponseEntity<Response> responseEntity = bookConsumer.addBook(bookDto);
+		 Object data =  responseEntity.getBody().getData();
+		return new ResponseEntity<>(new Response(false, "Data added",data),HttpStatus.OK);
+	}
+	
+	@GetMapping("/user/{id}")
+	@CircuitBreaker(name = "userService",fallbackMethod = "circuitbreakermessage")
+	public ResponseEntity<Response> addBook(@PathVariable Integer id){
+		return new ResponseEntity<>(new Response(false, "Data added", bookConsumer.find(id).getBody().getData()),HttpStatus.OK);
+	}
+	
+	public ResponseEntity<Response> circuitbreakermessage (Exception e){
+		return new ResponseEntity<>(new Response(false, "Try Again", null),HttpStatus.OK);
+	}
+	
+}

@@ -1,0 +1,21 @@
+server:
+  port: 8888
+   
+eureka:
+    instance:
+      hostname: localhost
+    
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+       - id: BOOK-SERVICE
+         uri: lb://BOOK-SERVICE
+         predicates:
+          - Path=/book/**
+       - id: USER-SERVICE
+         uri: lb://USER-SERVICE
+         predicates:
+          - Path=/user/**

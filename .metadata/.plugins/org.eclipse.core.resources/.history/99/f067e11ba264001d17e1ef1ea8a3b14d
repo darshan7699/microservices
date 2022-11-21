@@ -1,0 +1,5 @@
+package com.te.bookservice.services;
+
+public class BookServiceImpl {
+
+}

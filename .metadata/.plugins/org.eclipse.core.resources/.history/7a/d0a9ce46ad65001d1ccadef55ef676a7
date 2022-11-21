@@ -1,0 +1,62 @@
+spring:
+  application:
+    name: USER-SERVICE
+
+
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include:
+        - health
+  endpoint:
+    health:
+      show-details: always
+
+
+#resilience4j:
+#  circuitbreaker:
+#    instances:
+#      addBook:
+#        registerHealthIndicator: true
+#        eventConsumerBufferSize: 10
+#        failureRateThreshold: 50
+#        minimumNumberOfCalls: 5
+#        automaticTransitionFromOpenToHalfOpenEnabled: true
+#        waitDurationInOpenState: 5s
+#        permittedNumberOfCallsInHalfOpenState: 3
+#        slidingWindowSize: 10
+#        slidingWindowType: COUNT_BASED
+        
+#resilience4j.retry:
+#  instances:
+#    addBook:
+#      maxAttempts: 5
+#      waitDuration: 10s
+      
+
+
+#resilience4j:
+#  ratelimiter:
+#    configs:
+#      default:
+#        limitForPeriod: 2
+#        limitRefreshPeriod: 10s
+#        timeoutDuration: 100ms
+#      addBookConfig:
+#        limitForPeriod: 5
+#        limitRefreshPeriod: 20s
+#        timeoutDuration: 100ms
+#    instances:
+#       addBook:
+#          baseConfig: addBookConfig
+
+resilience4j:
+ timelimiter:
+    instances:
+      time:
+       timeoutDuration: 1ms
+       cancel-running-future: true
